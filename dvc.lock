@@ -17,3 +17,28 @@ stages:
       md5: d12cd4e8482700c7ca8331f3fcddbaff.dir
       size: 16204746
       nfiles: 3
+  make_dataset:
+    cmd: python .\src\data\make_dataset.py train.csv test.csv
+    deps:
+    - path: .\data\raw\extracted\test.csv
+      hash: md5
+      md5: 73ce23cb43f629cf564adb01da2113cb
+      size: 5925485
+    - path: .\data\raw\extracted\train.csv
+      hash: md5
+      md5: d9e20f0aef74f9830059aadaed58a154
+      size: 9486541
+    - path: .\src\data\make_dataset.py
+      hash: md5
+      md5: b1d6edb8fc543dc31ef7141cef643292
+      size: 3031
+    params:
+      params.yaml:
+        make_dataset.random_state: 9
+        make_dataset.test_size: 0.25
+    outs:
+    - path: .\data\interim
+      hash: md5
+      md5: f7ef2457d23652cc5829094ee004eaee.dir
+      size: 15540437
+      nfiles: 3

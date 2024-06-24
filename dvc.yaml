@@ -6,3 +6,14 @@ stages:
       - .\src\data\extract_data.py
     outs:
       - .\data\raw\extracted
+  make_dataset:
+    cmd: python .\src\data\make_dataset.py train.csv test.csv
+    deps:
+      - .\data\raw\extracted\train.csv
+      - .\data\raw\extracted\test.csv
+      - .\src\data\make_dataset.py
+    params:
+      - make_dataset.test_size
+      - make_dataset.random_state
+    outs:
+      - .\data\interim
