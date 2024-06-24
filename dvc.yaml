@@ -55,11 +55,11 @@ stages:
       - .\models\models
 
   predict_model:
-    cmd: python .\src\models\predict_model.py train.csv val.csv test.csv
+    cmd: python .\src\models\predict_model.py val.csv test.csv
     deps:
       - .\src\models\predict_model.py
       - .\data\processed\val.csv
+      - .\data\processed\test.csv
       - .\models\models
-      - .\data\interim\test.csv
     outs:
       - .\data\submission\submission.csv

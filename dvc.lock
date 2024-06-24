@@ -110,3 +110,28 @@ stages:
       md5: d88af9745d5280e1abc663a82086fd20.dir
       size: 47651728
       nfiles: 8
+  predict_model:
+    cmd: python .\src\models\predict_model.py val.csv test.csv
+    deps:
+    - path: .\data\processed\test.csv
+      hash: md5
+      md5: a91f44354f78d2dd355469af7eaf402f
+      size: 25580310
+    - path: .\data\processed\val.csv
+      hash: md5
+      md5: 7792283cf39abaeb171446e758daea10
+      size: 9631672
+    - path: .\models\models
+      hash: md5
+      md5: d88af9745d5280e1abc663a82086fd20.dir
+      size: 47651728
+      nfiles: 8
+    - path: .\src\models\predict_model.py
+      hash: md5
+      md5: 91d5695342f9619866725565518c5bc3
+      size: 3654
+    outs:
+    - path: .\data\submission\submission.csv
+      hash: md5
+      md5: c4d488a9dd3fa549bf2b42f482792dbb
+      size: 828935
