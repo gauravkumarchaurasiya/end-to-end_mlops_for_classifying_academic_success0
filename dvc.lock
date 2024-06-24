@@ -42,3 +42,71 @@ stages:
       md5: f7ef2457d23652cc5829094ee004eaee.dir
       size: 15540437
       nfiles: 3
+  data_preprocessing:
+    cmd: python .\src\features\preprocessing.py train.csv val.csv test.csv
+    deps:
+    - path: .\data\interim\train.csv
+      hash: md5
+      md5: 841a5b8de690d8644835985eb2f390d3
+      size: 7174432
+    - path: .\data\interim\val.csv
+      hash: md5
+      md5: 40408dd723150493782a36fe1d978778
+      size: 2389507
+    - path: .\data\raw\extracted\test.csv
+      hash: md5
+      md5: 73ce23cb43f629cf564adb01da2113cb
+      size: 5925485
+    - path: .\src\features\preprocessing.py
+      hash: md5
+      md5: 10cb8f6a7e0cc8d87bb1b8fc3e0aa013
+      size: 4714
+    outs:
+    - path: .\data\processed
+      hash: md5
+      md5: 9c651feede69d252dcb841a64291d33a.dir
+      size: 64104535
+      nfiles: 3
+    - path: .\models\transformers
+      hash: md5
+      md5: 95ad94f30b7bf024d6b2f4d5c31b968e.dir
+      size: 7023
+      nfiles: 2
+  train_model:
+    cmd: python .\src\models\train_model.py train.csv
+    deps:
+    - path: .\data\processed\train.csv
+      hash: md5
+      md5: b0d119b445b0c0769eb89c7cfe411fee
+      size: 28892553
+    - path: .\src\models\models_list.py
+      hash: md5
+      md5: 6d34e5210c6d0ab82892490163e72d54
+      size: 1241
+    - path: .\src\models\train_model.py
+      hash: md5
+      md5: 5ba22d7ac65ae594ac9880304c0da6f1
+      size: 3223
+    params:
+      params.yaml:
+        train_model.adaboost.learning_rate: 1.0
+        train_model.adaboost.n_estimators: 50
+        train_model.decision_tree.max_depth: 5
+        train_model.gaussian_nb: {}
+        train_model.gradient_boosting.learning_rate: 0.1
+        train_model.gradient_boosting.max_depth: 3
+        train_model.gradient_boosting.n_estimators: 100
+        train_model.knn.n_neighbors: 5
+        train_model.knn.weights: uniform
+        train_model.logistic_regression.C: 1.0
+        train_model.logistic_regression.max_iter: 100
+        train_model.random_forest.max_depth: 10
+        train_model.random_forest.n_estimators: 100
+        train_model.svc.C: 1.0
+        train_model.svc.kernel: rbf
+    outs:
+    - path: .\models\models
+      hash: md5
+      md5: d88af9745d5280e1abc663a82086fd20.dir
+      size: 47651728
+      nfiles: 8

@@ -17,3 +17,49 @@ stages:
       - make_dataset.random_state
     outs:
       - .\data\interim
+
+  data_preprocessing:
+    cmd: python .\src\features\preprocessing.py train.csv val.csv test.csv
+    deps:
+      - .\src\features\preprocessing.py
+      - .\data\interim\train.csv
+      - .\data\interim\val.csv
+      - .\data\raw\extracted\test.csv
+    outs:
+      - .\data\processed
+      - .\models\transformers
+
+  train_model:
+    cmd: python .\src\models\train_model.py train.csv
+    deps:
+      - .\src\models\train_model.py
+      - .\src\models\models_list.py
+      - .\data\processed\train.csv
+    params:
+      - train_model.random_forest.n_estimators
+      - train_model.random_forest.max_depth
+      - train_model.logistic_regression.C
+      - train_model.logistic_regression.max_iter
+      - train_model.svc.C
+      - train_model.svc.kernel
+      - train_model.decision_tree.max_depth
+      - train_model.gradient_boosting.n_estimators
+      - train_model.gradient_boosting.learning_rate
+      - train_model.gradient_boosting.max_depth
+      - train_model.adaboost.n_estimators
+      - train_model.adaboost.learning_rate
+      - train_model.knn.n_neighbors
+      - train_model.knn.weights
+      - train_model.gaussian_nb
+    outs:
+      - .\models\models
+
+  predict_model:
+    cmd: python .\src\models\predict_model.py train.csv val.csv test.csv
+    deps:
+      - .\src\models\predict_model.py
+      - .\data\processed\val.csv
+      - .\models\models
+      - .\data\interim\test.csv
+    outs:
+      - .\data\submission\submission.csv
