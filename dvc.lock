@@ -1,0 +1,19 @@
+schema: '2.0'
+stages:
+  extract_data:
+    cmd: python .\src\data\extract_data.py playground-series-s4e6.zip
+    deps:
+    - path: .\data\raw\Zipped\playground-series-s4e6.zip
+      hash: md5
+      md5: fd8caf952776f3c1ae29abe49311762c
+      size: 3217279
+    - path: .\src\data\extract_data.py
+      hash: md5
+      md5: b4ab3ed2eed5878e33c9feb49f479f3b
+      size: 918
+    outs:
+    - path: .\data\raw\extracted
+      hash: md5
+      md5: d12cd4e8482700c7ca8331f3fcddbaff.dir
+      size: 16204746
+      nfiles: 3

@@ -1,0 +1,8 @@
+stages:
+  extract_data:
+    cmd: python .\src\data\extract_data.py playground-series-s4e6.zip
+    deps:
+      - .\data\raw\Zipped\playground-series-s4e6.zip
+      - .\src\data\extract_data.py
+    outs:
+      - .\data\raw\extracted
