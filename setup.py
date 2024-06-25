@@ -4,15 +4,24 @@ from typing import List
 
 HYPEN_E_DOT='-e .'
 
-def get_requirements(file_path:str)->List[str]:
-    requirements={}
-    with open(file_path) as file_obj:
-        requirements=file_obj.readlines()
-        requirements=[req.replace('\n','') for req in requirements]
-        
-        if HYPEN_E_DOT in requirements:
-            requirements.remove(HYPEN_E_DOT)
-            
+def get_requirements(file_path: str) -> List[str]:
+    requirements = []
+    encodings = ['utf-8', 'utf-16', 'utf-32', 'latin-1']
+    
+    for encoding in encodings:
+        try:
+            with open(file_path, 'r', encoding=encoding) as file_obj:
+                requirements = file_obj.read().splitlines()
+            break  # If successful, exit the loop
+        except UnicodeDecodeError:
+            continue  # Try the next encoding
+    
+    if not requirements:
+        raise ValueError(f"Unable to read {file_path} with any of the attempted encodings")
+    
+    if HYPEN_E_DOT in requirements:
+        requirements.remove(HYPEN_E_DOT)
+    
     return requirements
 setup(
     name='src',

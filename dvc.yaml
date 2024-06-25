@@ -63,3 +63,22 @@ stages:
       - .\models\models
     outs:
       - .\data\submission\submission.csv
+
+  results_plot:
+    cmd: python .\src\visualization\results_plot.py val.csv
+    deps:
+      - .\data\processed\val.csv
+      - .\data\submission\submission.csv
+      - .\models\transformers
+      - .\models\models
+    outs:
+      - .\src\visualization\reports
+
+  hyperparameter_tuning:
+    cmd: python src/models/hyperparameter_tuning.py
+    deps:
+      - src/models/hyperparameter_tuning.py
+      - data/processed/train.csv
+      - data/processed/val.csv
+    outs:
+      - models/tuned_models

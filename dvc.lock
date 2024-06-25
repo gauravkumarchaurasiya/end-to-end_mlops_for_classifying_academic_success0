@@ -69,8 +69,8 @@ stages:
       nfiles: 3
     - path: .\models\transformers
       hash: md5
-      md5: 95ad94f30b7bf024d6b2f4d5c31b968e.dir
-      size: 7023
+      md5: 86c422ba2dc61a195f873897429c00fa.dir
+      size: 7025
       nfiles: 2
   train_model:
     cmd: python .\src\models\train_model.py train.csv
@@ -107,8 +107,8 @@ stages:
     outs:
     - path: .\models\models
       hash: md5
-      md5: d88af9745d5280e1abc663a82086fd20.dir
-      size: 47651728
+      md5: bc3acfc9000fa30e8bf7bd28ace0965f.dir
+      size: 47596332
       nfiles: 8
   predict_model:
     cmd: python .\src\models\predict_model.py val.csv test.csv
@@ -123,8 +123,8 @@ stages:
       size: 9631672
     - path: .\models\models
       hash: md5
-      md5: d88af9745d5280e1abc663a82086fd20.dir
-      size: 47651728
+      md5: bc3acfc9000fa30e8bf7bd28ace0965f.dir
+      size: 47596332
       nfiles: 8
     - path: .\src\models\predict_model.py
       hash: md5
@@ -133,5 +133,32 @@ stages:
     outs:
     - path: .\data\submission\submission.csv
       hash: md5
-      md5: c4d488a9dd3fa549bf2b42f482792dbb
-      size: 828935
+      md5: 03173aed4f07a8fc1c7f8ecfa458ffd5
+      size: 829021
+  results_plot:
+    cmd: python .\src\visualization\results_plot.py val.csv
+    deps:
+    - path: .\data\processed\val.csv
+      hash: md5
+      md5: 7792283cf39abaeb171446e758daea10
+      size: 9631672
+    - path: .\data\submission\submission.csv
+      hash: md5
+      md5: 03173aed4f07a8fc1c7f8ecfa458ffd5
+      size: 829021
+    - path: .\models\models
+      hash: md5
+      md5: bc3acfc9000fa30e8bf7bd28ace0965f.dir
+      size: 47596332
+      nfiles: 8
+    - path: .\models\transformers
+      hash: md5
+      md5: 86c422ba2dc61a195f873897429c00fa.dir
+      size: 7025
+      nfiles: 2
+    outs:
+    - path: .\src\visualization\reports
+      hash: md5
+      md5: 065827aae5036aeaabc3e7c6ae659131.dir
+      size: 405172
+      nfiles: 4

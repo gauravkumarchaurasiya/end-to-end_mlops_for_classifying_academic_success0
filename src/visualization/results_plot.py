@@ -11,7 +11,7 @@ def load_data(file_path):
     return pd.read_csv(file_path)
 
 def create_plot_directory(root_path, model_name):
-    plot_dir = root_path / 'reports' / 'figures' / model_name
+    plot_dir = root_path /'src'/'visualization'/ 'reports' / 'figures' / model_name
     plot_dir.mkdir(parents=True, exist_ok=True)
     return plot_dir
 
@@ -63,7 +63,7 @@ def main():
     test_predictions = load_data(submission_path)
 
     # Load model and label encoder
-    model_name = 'randomforest'  # Change this if you're using a different model
+    model_name = 'randomforest' 
     model_path = root_path / 'models' / 'models' / f'{model_name}.joblib'
     le_path = root_path / 'models' / 'transformers' / 'label_encoder.joblib'
     model = joblib.load(model_path)
