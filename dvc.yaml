@@ -74,6 +74,9 @@ stages:
     outs:
       - .\src\visualization\reports
 
+  mlflow-setup:
+    cmd: mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./mlflow-artifacts
+    
   hyperparameter_tuning:
     cmd: python src/models/hyperparameter_tuning.py
     deps:
